@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<snmp_v3_agent_setup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:noNamespaceSchemaLocation="XMLSchema.xsd">
+    <users>
+         <user securityName="usr-md5-1">
+            <level>authNoPriv</level>
+            <authAlg authKey="authKey_min8c">usmHMACMD5AuthProtocol</authAlg>
+        </user>
+        <user securityName="usr-md5-2">
+            <level>authNoPriv</level>
+            <authAlg authKey="authKey_min8c">usmHMACMD5AuthProtocol</authAlg>
+        </user>
+        <user securityName="usr-md5-3">
+            <level>authNoPriv</level>
+            <authAlg authKey="authKey_min8c">usmHMACMD5AuthProtocol</authAlg>
+        </user>
+        <user securityName="usr-md5-4">
+            <level>authNoPriv</level>
+            <authAlg authKey="authKey_min8c">usmHMACMD5AuthProtocol</authAlg>
+        </user>
+        <user securityName="user1">
+            <level>authPriv</level>
+            <authAlg authKey="12345678">usmHMACMD5AuthProtocol</authAlg>
+            <privAlg privKey="12345678">usmAesCfb128Protocol</privAlg>
+        </user>
+        <user securityName="user2">
+            <level>authNoPriv</level>
+            <authAlg authKey="11111111">usmHMACMD5AuthProtocol</authAlg>
+        </user>
+        <user securityName="user3">
+            <level>authNoPriv</level>
+            <authAlg authKey="11111177">usmHMACMD5AuthProtocol</authAlg>
+        </user>
+    </users>
+    
+    <groups >
+        <group groupName="Group-1">
+            <securityName>usr-md5-1</securityName>
+        </group>
+        <group groupName="Group-2">
+            <securityName>usr-md5-2</securityName>
+        </group>
+        <group groupName="Group-3">
+            <securityName>usr-md5-3</securityName>
+        </group>
+        <group groupName="Group-4">
+            <securityName>usr-md5-4</securityName>
+        </group>
+        <group groupName="adminGroup">
+            <securityName>user1</securityName>
+            <securityName>user4</securityName>
+        </group>
+        <group groupName="group2">
+            <securityName>user2</securityName>
+            <securityName>user3</securityName>
+        </group>
+    </groups>
+    
+    <views>
+        <view viewName="View-Group-1">
+            <OID>1.3</OID>
+        </view>
+        <view viewName="View-Group-2">
+            <OID>1.3.6.1.4.1.28308.3.1.4</OID>
+        </view>
+        <view viewName="View-Group-3">
+            <OID>1.3.6.1.4.1.28308.3.1.1.0</OID>
+        </view>
+        <view viewName="View-Group-4">
+            <OID>1.3.6.1.4.1.28308.3.1.60.0</OID>
+        </view>
+        <view viewName="View-1">
+            <OID>1.3.6.1.4.1.28308.3.1</OID>
+        </view>
+        <view viewName="View-2">
+            <OID>1.3.6.1.4.1.28308.3.1.4</OID>
+            <OID>1.3.6.1.4.1.28308.3.1.5</OID>
+            <OID>1.3.6.1.4.1.28308.3.1.6</OID>
+            <OID>1.3.6.1.4.1.28308.3.1.2</OID>
+            <OID>1.3.6.1.4.1.28308.3.1.3</OID>
+            <OID>1.3.6.1.4.1.28308.3.1.1</OID>
+        </view>
+    </views>
+    
+    <access accessName="string">
+        <group>
+            <groupName>Group-1</groupName>
+            <Level>authNoPriv</Level>
+            <read>View-Group-1</read>
+            <write>View-Group-1</write>
+            <notify>View-Group-1</notify>
+        </group>
+        <group>
+            <groupName>Group-2</groupName>
+            <Level>authNoPriv</Level>
+            <read>View-Group-2</read>
+            <write>View-Group-2</write>
+            <notify>View-Group-2</notify>
+        </group>
+        <group>
+            <groupName>Group-3</groupName>
+            <Level>authNoPriv</Level>
+            <read>View-Group-3</read>
+            <write>View-Group-3</write>
+            <notify>View-Group-3</notify>
+        </group>
+        <group>
+            <groupName>Group-4</groupName>
+            <Level>authNoPriv</Level>
+            <read>View-Group-4</read>
+            <write>View-Group-4</write>
+            <notify>View-Group-4</notify>
+        </group>
+
+        <group>
+            <groupName>adminGroup</groupName>
+            <Level>authPriv</Level>
+            <read>View-1</read>
+            <write>View-1</write>
+            <notify>View-1</notify>
+        </group>
+        <group>
+            <groupName>group2</groupName>
+            <Level>authNoPriv</Level>
+            <read>View-1</read>
+            <write>View-1</write>
+            <notify>View-2</notify>
+        </group>
+    </access>
+    
+    <network>
+        <interfaces>
+            <interface ip_addr="127.0.0.1" port="161" />
+        </interfaces>
+    </network>
+
+    <notifications>
+        <users_n>
+            <user_n name="user1"></user_n>
+        </users_n>
+        <interfaces>
+            <interface ip_addr="127.0.0.1" port="162" />
+        </interfaces>
+    </notifications>
+
+</snmp_v3_agent_setup>
